@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,102 +7,182 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
+    <header class="transparent-header" role="banner">
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
             <div class="logo">
-                <h1>MenuCraft</h1>
+                <h1><a href="index.html" aria-label="MenuCraft Home">MenuCraft</a></h1>
             </div>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="editor.html">Editor</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
+            <ul class="nav-links" role="menubar">
+                <li role="none"><a href="index.html" class="active" role="menuitem" aria-current="page">Home</a></li>
+                <li role="none"><a href="editor.html" role="menuitem">Editor</a></li>
+                <li role="none"><a href="about.html" role="menuitem">About Us</a></li>
+                <li role="none"><a href="contact.html" role="menuitem">Contact Us</a></li>
             </ul>
-            <div class="hamburger">
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
-            </div>
+            </button>
         </nav>
     </header>
 
     <main>
-        <section class="hero">
+        <section class="hero-fullscreen" role="banner">
+            <div class="hero-overlay" aria-hidden="true"></div>
             <div class="hero-content">
                 <h1>Create Stunning Menu Designs</h1>
                 <p>Design professional restaurant menus with our easy-to-use drag-and-drop editor</p>
-                <a href="editor.html" class="btn-primary">Start Designing</a>
-            </div>
-            <div class="hero-image">
-                <img src="assets/images/hero-image.png" alt="Menu design example">
-            </div>
-        </section>
-
-        <section class="features">
-            <h2>Why Choose MenuCraft?</h2>
-            <div class="feature-cards">
-                <div class="feature-card">
-                    <i class="fas fa-paint-brush"></i>
-                    <h3>Beautiful Templates</h3>
-                    <p>Start with professionally designed templates or create from scratch</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-mouse-pointer"></i>
-                    <h3>Drag & Drop Editor</h3>
-                    <p>No design skills needed with our intuitive editor</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-images"></i>
-                    <h3>Free Stock Images</h3>
-                    <p>Access thousands of free images via Pexels integration</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-file-export"></i>
-                    <h3>Easy Export</h3>
-                    <p>Download your designs as PNG or PDF files</p>
+                <div class="hero-buttons">
+                    <a href="editor.html" class="btn-primary" role="button">Start Designing</a>
+                    <a href="#features" class="btn-secondary" role="button">Learn More</a>
                 </div>
             </div>
         </section>
 
-        <section class="templates-preview">
-            <h2>Ready-to-Use Templates</h2>
-            <div class="template-gallery">
-                <!-- Template previews will be loaded dynamically -->
+        <section id="features" class="features" role="region" aria-labelledby="features-heading">
+            <div class="section-header">
+                <h2 id="features-heading">Why Choose MenuCraft?</h2>
+                <p class="section-subtitle">Powerful features to create professional menus in minutes</p>
             </div>
-            <a href="editor.html" class="btn-secondary">View All Templates</a>
+            <div class="feature-cards" role="list">
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Beautiful Templates</h3>
+                        <p>Start with professionally designed templates customized for different restaurant types and cuisines. Each template is crafted by professional designers to ensure your menu looks stunning.</p>
+                    </div>
+                </article>
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Drag & Drop Editor</h3>
+                        <p>Our intuitive drag-and-drop editor makes menu creation simple. Add text, images, and shapes with ease. No design skills needed - just point, click, and create.</p>
+                    </div>
+                </article>
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Premium Stock Images</h3>
+                        <p>Access thousands of high-quality food and restaurant images to enhance your menu. Search by cuisine type or dish to find the perfect visuals for your brand.</p>
+                    </div>
+                </article>
+                <article class="feature-card" role="listitem">
+                    <div class="feature-icon" aria-hidden="true">
+                        <i class="fas fa-file-export"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Easy Export</h3>
+                        <p>Download your designs as high-resolution PNG or PDF files ready for printing. Share digitally or send directly to your preferred printing service.</p>
+                    </div>
+                </article>
+            </div>
         </section>
 
-        <section class="cta">
-            <h2>Ready to Create Your Menu?</h2>
-            <p>Join thousands of restaurants creating professional menus with MenuCraft</p>
-            <a href="editor.html" class="btn-primary">Start Designing Now</a>
+        <section class="templates-preview" role="region" aria-labelledby="templates-heading">
+            <div class="section-header">
+                <h2 id="templates-heading">Ready-to-Use Templates</h2>
+                <p class="section-subtitle">Start with a professionally designed template and customize to your needs</p>
+            </div>
+            <div class="template-gallery" role="list" aria-live="polite">
+                <div class="template-loading" aria-hidden="true">Loading templates...</div>
+            </div>
+            <div class="templates-action">
+                <a href="editor.html" class="btn-secondary" role="button">View All Templates</a>
+            </div>
+        </section>
+
+        <section class="testimonials" role="region" aria-labelledby="testimonials-heading">
+            <div class="section-header">
+                <h2 id="testimonials-heading">What Our Customers Say</h2>
+                <p class="section-subtitle">Join thousands of satisfied restaurant owners</p>
+            </div>
+            <div class="testimonial-slider" role="list">
+                <article class="testimonial-card" role="listitem">
+                    <div class="testimonial-content">
+                        <blockquote>
+                            <p>"MenuCraft transformed our menu design process. What used to take days now takes minutes, and the results are stunning. Our customers love our new menus!"</p>
+                        </blockquote>
+                    </div>
+                    <footer class="testimonial-author">
+                        <div class="author-info">
+                            <cite>Michael Rodriguez</cite>
+                            <p>Owner, Bistro Elegante</p>
+                        </div>
+                    </footer>
+                </article>
+                <article class="testimonial-card" role="listitem">
+                    <div class="testimonial-content">
+                        <blockquote>
+                            <p>"The drag-and-drop editor is incredibly intuitive. I was able to create a beautiful menu for our cafe without any design experience. Highly recommended!"</p>
+                        </blockquote>
+                    </div>
+                    <footer class="testimonial-author">
+                        <div class="author-info">
+                            <cite>Sarah Johnson</cite>
+                            <p>Manager, Urban Brew Cafe</p>
+                        </div>
+                    </footer>
+                </article>
+                <article class="testimonial-card" role="listitem">
+                    <div class="testimonial-content">
+                        <blockquote>
+                            <p>"The templates are professionally designed and the stock images are perfect for our Japanese restaurant. MenuCraft saved us thousands in design costs."</p>
+                        </blockquote>
+                    </div>
+                    <footer class="testimonial-author">
+                        <div class="author-info">
+                            <cite>Takashi Yamamoto</cite>
+                            <p>Chef, Sakura Sushi</p>
+                        </div>
+                    </footer>
+                </article>
+            </div>
+        </section>
+
+        <section class="cta" role="region" aria-labelledby="cta-heading">
+            <div class="cta-overlay" aria-hidden="true"></div>
+            <div class="cta-content">
+                <h2 id="cta-heading">Ready to Create Your Menu?</h2>
+                <p>Join thousands of restaurants creating professional menus with MenuCraft</p>
+                <a href="editor.html" class="btn-primary" role="button">Start Designing Now</a>
+                <p class="cta-subtext" aria-label="Additional information">No credit card required • Free to use</p>
+            </div>
         </section>
     </main>
 
-    <footer>
+    <footer role="contentinfo">
         <div class="footer-content">
             <div class="footer-logo">
-                <h2>MenuCraft</h2>
+                <h2><a href="index.html" aria-label="MenuCraft Home">MenuCraft</a></h2>
                 <p>Design beautiful menus in minutes</p>
             </div>
-            <div class="footer-links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="editor.html">Editor</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+            <nav class="footer-links" aria-label="Footer Navigation">
+                <h3 id="quick-links">Quick Links</h3>
+                <ul role="menu" aria-labelledby="quick-links">
+                    <li role="none"><a href="index.html" role="menuitem">Home</a></li>
+                    <li role="none"><a href="editor.html" role="menuitem">Editor</a></li>
+                    <li role="none"><a href="about.html" role="menuitem">About Us</a></li>
+                    <li role="none"><a href="contact.html" role="menuitem">Contact Us</a></li>
                 </ul>
-            </div>
+            </nav>
             <div class="footer-social">
-                <h3>Follow Us</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                <h3 id="social-links">Follow Us</h3>
+                <div class="social-icons" role="list" aria-labelledby="social-links">
+                    <a href="https://facebook.com/menucraft" target="_blank" rel="noopener noreferrer" aria-label="Visit MenuCraft on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                    <a href="https://twitter.com/menucraft" target="_blank" rel="noopener noreferrer" aria-label="Follow MenuCraft on Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a href="https://instagram.com/menucraft" target="_blank" rel="noopener noreferrer" aria-label="Follow MenuCraft on Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a href="https://pinterest.com/menucraft" target="_blank" rel="noopener noreferrer" aria-label="Follow MenuCraft on Pinterest"><i class="fab fa-pinterest" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>

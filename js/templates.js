@@ -35,6 +35,16 @@ function loadTemplates() {
             id: 6,
             name: 'Cocktail List',
             thumbnail: 'assets/templates/template6.jpg'
+        },
+        {
+            id: 7,
+            name: 'Premium Dining',
+            thumbnail: 'assets/templates/template7.jpg'
+        },
+        {
+            id: 8,
+            name: 'Cuisine-Specific Premium',
+            thumbnail: 'assets/templates/template7.jpg'
         }
     ];
     
@@ -348,6 +358,9 @@ function generateRandomTemplate() {
 
             break;
     }
+    
+    // Add a stylish background image
+    addBackgroundImage(canvas);
 }
 
 
@@ -874,13 +887,96 @@ function addBackgroundImage(canvas) {
 
 }
 
-
-// Modify the generateRandomTemplate function to include background images
-
-// Add this line at the end of the generateRandomTemplate function, just before the closing brace:
-
-
-    // Add a stylish background image
-
-    addBackgroundImage(canvas);
-
+// Create a premium template with sophisticated design
+function loadPremiumTemplate() {
+    // Use the enhanced premium template implementation
+    const enhancedTemplate = window.loadPremiumTemplate || function() {
+        const canvas = document.getElementById('editor-canvas');
+        
+        // Clear the canvas
+        canvas.innerHTML = '';
+        
+        // Set a premium background color
+        canvas.style.backgroundColor = '#f9f7f3';
+        
+        // Add elegant gold border
+        const borderTop = document.createElement('div');
+        borderTop.className = 'canvas-element';
+        borderTop.style.left = '40px';
+        borderTop.style.top = '40px';
+        borderTop.style.width = '720px';
+        borderTop.style.height = '2px';
+        borderTop.style.backgroundColor = '#c9a959';
+        canvas.appendChild(borderTop);
+        
+        const borderBottom = document.createElement('div');
+        borderBottom.className = 'canvas-element';
+        borderBottom.style.left = '40px';
+        borderBottom.style.top = '1080px';
+        borderBottom.style.width = '720px';
+        borderBottom.style.height = '2px';
+        borderBottom.style.backgroundColor = '#c9a959';
+        canvas.appendChild(borderBottom);
+        
+        const borderLeft = document.createElement('div');
+        borderLeft.className = 'canvas-element';
+        borderLeft.style.left = '40px';
+        borderLeft.style.top = '40px';
+        borderLeft.style.width = '2px';
+        borderLeft.style.height = '1040px';
+        borderLeft.style.backgroundColor = '#c9a959';
+        canvas.appendChild(borderLeft);
+        
+        const borderRight = document.createElement('div');
+        borderRight.className = 'canvas-element';
+        borderRight.style.left = '758px';
+        borderRight.style.top = '40px';
+        borderRight.style.width = '2px';
+        borderRight.style.height = '1040px';
+        borderRight.style.backgroundColor = '#c9a959';
+        canvas.appendChild(borderRight);
+        
+        // Add restaurant name
+        const restaurantNameElement = document.createElement('div');
+        restaurantNameElement.className = 'canvas-element text';
+        restaurantNameElement.style.left = '100px';
+        restaurantNameElement.style.top = '100px';
+        restaurantNameElement.style.width = '600px';
+        restaurantNameElement.style.textAlign = 'center';
+        restaurantNameElement.style.fontFamily = 'Playfair Display, serif';
+        restaurantNameElement.style.fontSize = '48px';
+        restaurantNameElement.style.fontWeight = '700';
+        restaurantNameElement.style.color = '#2c3e50';
+        restaurantNameElement.contentEditable = true;
+        restaurantNameElement.innerHTML = 'Le Cozy Bistro';
+        makeElementDraggable(restaurantNameElement);
+        canvas.appendChild(restaurantNameElement);
+        
+        // Add sections for menu items
+        const sections = ['APPETIZERS', 'MAIN COURSES', 'DESSERTS'];
+        let yPos = 280;
+        
+        sections.forEach(section => {
+            const sectionTitle = document.createElement('div');
+            sectionTitle.className = 'canvas-element text';
+            sectionTitle.style.left = '100px';
+            sectionTitle.style.top = yPos + 'px';
+            sectionTitle.style.width = '600px';
+            sectionTitle.style.textAlign = 'center';
+            sectionTitle.style.fontFamily = 'Montserrat, sans-serif';
+            sectionTitle.style.fontSize = '24px';
+            sectionTitle.style.fontWeight = '600';
+            sectionTitle.style.color = '#2c3e50';
+            sectionTitle.style.letterSpacing = '2px';
+            sectionTitle.contentEditable = true;
+            sectionTitle.innerHTML = section;
+            makeElementDraggable(sectionTitle);
+            canvas.appendChild(sectionTitle);
+            
+            yPos += 200;
+        });
+    };
+    
+    // Call the enhanced template function
+    enhancedTemplate();
+}

@@ -118,86 +118,181 @@ function loadTemplateById(templateId) {
     
     const canvas = document.getElementById('editor-canvas');
     
-    // Clear the canvas
-    canvas.innerHTML = '';
+    // Show loading indicator
+    canvas.innerHTML = '<div class="loading-template">Loading template...</div>';
     
     // Set template background
     canvas.style.backgroundColor = '#ffffff';
     
-    // Add template elements based on the template ID
-    switch (parseInt(templateId)) {
-        case 1: // Elegant Bistro
-            canvas.style.backgroundColor = '#f8f5f0';
-            
-            // Add header
-            addTextElement('Elegant Bistro', 'center', '48px', 'Playfair Display, serif', '#2c3e50', 50, 50, 700, 80);
-            
-            // Add tagline
-            addTextElement('Fine Dining Experience', 'center', '24px', 'Montserrat, sans-serif', '#7f8c8d', 50, 140, 700, 40);
-            
-            // Add decorative line
-            addShapeElement('rectangle', '#d4af37', 300, 190, 200, 2);
-            
-            // Add sections
-            addTextElement('APPETIZERS', 'left', '28px', 'Montserrat, sans-serif', '#2c3e50', 50, 230, 700, 40);
-            addTextElement('MAIN COURSES', 'left', '28px', 'Montserrat, sans-serif', '#2c3e50', 50, 400, 700, 40);
-            addTextElement('DESSERTS', 'left', '28px', 'Montserrat, sans-serif', '#2c3e50', 50, 570, 700, 40);
-            
-            // Add menu items
-            addTextElement('Truffle Arancini .................... $12', 'left', '18px', 'Montserrat, sans-serif', '#34495e', 50, 280, 400, 30);
-            addTextElement('Beef Carpaccio ..................... $14', 'left', '18px', 'Montserrat, sans-serif', '#34495e', 50, 320, 400, 30);
-            addTextElement('Lobster Risotto ..................... $32', 'left', '18px', 'Montserrat, sans-serif', '#34495e', 50, 450, 400, 30);
-            addTextElement('Filet Mignon ......................... $38', 'left', '18px', 'Montserrat, sans-serif', '#34495e', 50, 490, 400, 30);
-            addTextElement('Chocolate Soufflé ................. $10', 'left', '18px', 'Montserrat, sans-serif', '#34495e', 50, 620, 400, 30);
-            addTextElement('Crème Brûlée ....................... $9', 'left', '18px', 'Montserrat, sans-serif', '#34495e', 50, 660, 400, 30);
-            
-            // Add footer
-            addTextElement('123 Gourmet Avenue • (555) 123-4567 • www.elegantbistro.com', 'center', '14px', 'Montserrat, sans-serif', '#7f8c8d', 50, 1050, 400, 20);
-            break;
-            
-        case 2: // Modern Cafe
-            canvas.style.backgroundColor = '#ffffff';
-            
-            // Add header with background
-            addShapeElement('rectangle', '#3498db', 0, 0, 800, 150);
-            addTextElement('MODERN CAFE', 'center', '48px', 'Oswald, sans-serif', '#ffffff', 50, 50, 700, 80);
-            addTextElement('BREAKFAST & LUNCH', 'center', '20px', 'Roboto, sans-serif', '#ffffff', 50, 110, 400, 30);
-            
-            // Add sections
-            addTextElement('BREAKFAST', 'center', '32px', 'Oswald, sans-serif', '#3498db', 50, 200, 700, 50);
-            
-            // Add breakfast items
-            addTextElement('Avocado Toast', 'left', '20px', 'Roboto, sans-serif', '#2c3e50', 50, 260, 700, 30);
-            addTextElement('Smashed avocado, poached eggs, cherry tomatoes', 'left', '16px', 'Roboto, sans-serif', '#7f8c8d', 50, 290, 400, 25);
-            addTextElement('$12', 'right', '20px', 'Roboto, sans-serif', '#3498db', 700, 260, 50, 30);
-            
-            addTextElement('Pancake Stack', 'left', '20px', 'Roboto, sans-serif', '#2c3e50', 50, 330, 700, 30);
-            addTextElement('Buttermilk pancakes, maple syrup, fresh berries', 'left', '16px', 'Roboto, sans-serif', '#7f8c8d', 50, 360, 400, 25);
-            addTextElement('$10', 'right', '20px', 'Roboto, sans-serif', '#3498db', 700, 330, 50, 30);
-            
-            // Add lunch section
-            addTextElement('LUNCH', 'center', '32px', 'Oswald, sans-serif', '#3498db', 50, 420, 700, 50);
-            
-            // Add lunch items
-            addTextElement('Quinoa Bowl', 'left', '20px', 'Roboto, sans-serif', '#2c3e50', 50, 480, 700, 30);
-            addTextElement('Mixed greens, roasted vegetables, tahini dressing', 'left', '16px', 'Roboto, sans-serif', '#7f8c8d', 50, 510, 400, 25);
-            addTextElement('$14', 'right', '20px', 'Roboto, sans-serif', '#3498db', 700, 480, 50, 30);
-            
-            addTextElement('Chicken Sandwich', 'left', '20px', 'Roboto, sans-serif', '#2c3e50', 50, 550, 700, 30);
-            addTextElement('Grilled chicken, avocado, bacon, sourdough bread', 'left', '16px', 'Roboto, sans-serif', '#7f8c8d', 50, 580, 400, 25);
-            addTextElement('$16', 'right', '20px', 'Roboto, sans-serif', '#3498db', 700, 550, 50, 30);
-            
-            // Add footer
-            addShapeElement('rectangle', '#3498db', 0, 1000, 800, 120);
-            addTextElement('OPEN DAILY 7AM - 3PM', 'center', '20px', 'Oswald, sans-serif', '#ffffff', 50, 1030, 700, 30);
-            addTextElement('123 Coffee Street • (555) 987-6543 • www.moderncafe.com', 'center', '16px', 'Roboto, sans-serif', '#ffffff', 50, 1070, 400, 20);
-            break;
-            
+    // Template data with Pexels image queries
+    const templates = {
+        1: { // Elegant Bistro
+            backgroundColor: '#f8f5f0',
+            imageQueries: ['gourmet food', 'fine dining'],
+            setup: function(images) {
+                // Clear the canvas
+                canvas.innerHTML = '';
+                
+                // Add header
+                addTextElement('Elegant Bistro', 'center', '48px', 'Playfair Display, serif', '#2c3e50', 50, 50, 700, 80);
+                
+                // Add tagline
+                addTextElement('Fine Dining Experience', 'center', '24px', 'Montserrat, sans-serif', '#7f8c8d', 50, 140, 700, 40);
+                
+                // Add decorative line
+                addShapeElement('rectangle', '#d4af37', 300, 190, 200, 2);
+                
+                // Add sections
+                addTextElement('APPETIZERS', 'left', '28px', 'Montserrat, sans-serif', '#2c3e50', 50, 230, 700, 40);
+                addTextElement('MAIN COURSES', 'left', '28px', 'Montserrat, sans-serif', '#2c3e50', 50, 400, 700, 40);
+                addTextElement('DESSERTS', 'left', '28px', 'Montserrat, sans-serif', '#2c3e50', 50, 570, 700, 40);
+                
+                // Add menu items
+                addTextElement('Truffle Arancini .................... $12', 'left', '18px', 'Montserrat, sans-serif', '#34495e', 50, 280, 400, 30);
+                addTextElement('Beef Carpaccio ..................... $14', 'left', '18px', 'Montserrat, sans-serif', '#34495e', 50, 320, 400, 30);
+                addTextElement('Lobster Risotto ..................... $32', 'left', '18px', 'Montserrat, sans-serif', '#34495e', 50, 450, 400, 30);
+                addTextElement('Filet Mignon ......................... $38', 'left', '18px', 'Montserrat, sans-serif', '#34495e', 50, 490, 400, 30);
+                addTextElement('Chocolate Soufflé ................. $10', 'left', '18px', 'Montserrat, sans-serif', '#34495e', 50, 620, 400, 30);
+                addTextElement('Crème Brûlée ....................... $9', 'left', '18px', 'Montserrat, sans-serif', '#34495e', 50, 660, 400, 30);
+                
+                // Add images if available
+                if (images && images.length > 0) {
+                    // Add a featured image
+                    addImageElement(images[0], 550, 280, 200, 150);
+                    
+                    // Add another image if available
+                    if (images.length > 1) {
+                        addImageElement(images[1], 550, 480, 200, 150);
+                    }
+                }
+                
+                // Add footer
+                addTextElement('123 Gourmet Avenue • (555) 123-4567 • www.elegantbistro.com', 'center', '14px', 'Montserrat, sans-serif', '#7f8c8d', 50, 1050, 700, 20);
+            }
+        },
+        2: { // Modern Cafe
+            backgroundColor: '#ffffff',
+            imageQueries: ['coffee cafe', 'breakfast food'],
+            setup: function(images) {
+                // Clear the canvas
+                canvas.innerHTML = '';
+                
+                // Add header with background
+                addShapeElement('rectangle', '#3498db', 0, 0, 800, 150);
+                addTextElement('MODERN CAFE', 'center', '48px', 'Oswald, sans-serif', '#ffffff', 50, 50, 700, 80);
+                addTextElement('BREAKFAST & LUNCH', 'center', '20px', 'Roboto, sans-serif', '#ffffff', 50, 110, 400, 30);
+                
+                // Add sections
+                addTextElement('BREAKFAST', 'center', '32px', 'Oswald, sans-serif', '#3498db', 50, 200, 700, 50);
+                
+                // Add breakfast items
+                addTextElement('Avocado Toast', 'left', '20px', 'Roboto, sans-serif', '#2c3e50', 50, 260, 700, 30);
+                addTextElement('Smashed avocado, poached eggs, cherry tomatoes', 'left', '16px', 'Roboto, sans-serif', '#7f8c8d', 50, 290, 400, 25);
+                addTextElement('$12', 'right', '20px', 'Roboto, sans-serif', '#3498db', 700, 260, 50, 30);
+                
+                addTextElement('Pancake Stack', 'left', '20px', 'Roboto, sans-serif', '#2c3e50', 50, 330, 700, 30);
+                addTextElement('Buttermilk pancakes, maple syrup, fresh berries', 'left', '16px', 'Roboto, sans-serif', '#7f8c8d', 50, 360, 400, 25);
+                addTextElement('$10', 'right', '20px', 'Roboto, sans-serif', '#3498db', 700, 330, 50, 30);
+                
+                // Add lunch section
+                addTextElement('LUNCH', 'center', '32px', 'Oswald, sans-serif', '#3498db', 50, 420, 700, 50);
+                
+                // Add lunch items
+                addTextElement('Quinoa Bowl', 'left', '20px', 'Roboto, sans-serif', '#2c3e50', 50, 480, 700, 30);
+                addTextElement('Mixed greens, roasted vegetables, tahini dressing', 'left', '16px', 'Roboto, sans-serif', '#7f8c8d', 50, 510, 400, 25);
+                addTextElement('$14', 'right', '20px', 'Roboto, sans-serif', '#3498db', 700, 480, 50, 30);
+                
+                addTextElement('Chicken Sandwich', 'left', '20px', 'Roboto, sans-serif', '#2c3e50', 50, 550, 700, 30);
+                addTextElement('Grilled chicken, avocado, bacon, sourdough bread', 'left', '16px', 'Roboto, sans-serif', '#7f8c8d', 50, 580, 400, 25);
+                addTextElement('$16', 'right', '20px', 'Roboto, sans-serif', '#3498db', 700, 550, 50, 30);
+                
+                // Add images if available
+                if (images && images.length > 0) {
+                    // Add a featured image
+                    addImageElement(images[0], 550, 260, 200, 150);
+                    
+                    // Add another image if available
+                    if (images.length > 1) {
+                        addImageElement(images[1], 550, 480, 200, 150);
+                    }
+                }
+                
+                // Add footer
+                addShapeElement('rectangle', '#3498db', 0, 1000, 800, 120);
+                addTextElement('OPEN DAILY 7AM - 3PM', 'center', '20px', 'Oswald, sans-serif', '#ffffff', 50, 1030, 700, 30);
+                addTextElement('123 Coffee Street • (555) 987-6543 • www.moderncafe.com', 'center', '16px', 'Roboto, sans-serif', '#ffffff', 50, 1070, 400, 20);
+            }
+        },
         // Add more templates as needed
-        default:
-            // Default empty template
-            break;
+    };
+    
+    const template = templates[parseInt(templateId)];
+    
+    if (!template) {
+        // Default empty template
+        canvas.innerHTML = '';
+        return;
     }
+    
+    // Set the background color
+    canvas.style.backgroundColor = template.backgroundColor;
+    
+    // Pexels API key
+    const apiKey = 'TUzzSvjEUXBV29vKjuGwBVr4YwmxBnJI6L07LtJScBOexfWXYXmzZj4o';
+    
+    // Fetch images for the template
+    const fetchPromises = template.imageQueries.map(query => {
+        return fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=1`, {
+            headers: {
+                'Authorization': apiKey
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.photos && data.photos.length > 0) {
+                return data.photos[0].src.medium;
+            }
+            return null;
+        })
+        .catch(error => {
+            console.error(`Error fetching image for ${query}:`, error);
+            return null;
+        });
+    });
+    
+    // Wait for all image fetches to complete
+    Promise.all(fetchPromises)
+        .then(images => {
+            // Filter out any null values
+            const validImages = images.filter(img => img !== null);
+            
+            // Set up the template with the fetched images
+            template.setup(validImages);
+            
+            // Add Pexels attribution if images were used
+            if (validImages.length > 0) {
+                const attribution = document.createElement('div');
+                attribution.className = 'pexels-attribution';
+                attribution.style.position = 'absolute';
+                attribution.style.bottom = '5px';
+                attribution.style.right = '5px';
+                attribution.style.fontSize = '10px';
+                attribution.style.color = '#999';
+                attribution.innerHTML = 'Photos provided by <a href="https://www.pexels.com" target="_blank">Pexels</a>';
+                canvas.appendChild(attribution);
+            }
+        })
+        .catch(error => {
+            console.error('Error loading template images:', error);
+            
+            // If there's an error, still set up the template without images
+            template.setup([]);
+        });
 }
 
 // Add a text element to the canvas
@@ -286,15 +381,28 @@ function addImageElement(src, left, top, width, height) {
 
 // Add resize handles to an element
 function addResizeHandles(element) {
-    const handles = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
+    const handles = [
+        'top-left', 'top-center', 'top-right',
+        'left-center', 'right-center',
+        'bottom-left', 'bottom-center', 'bottom-right'
+    ];
     
     handles.forEach(position => {
         const handle = document.createElement('div');
         handle.className = `resize-handle ${position}`;
+        
+        // Add touch support for mobile devices
         handle.addEventListener('mousedown', function(e) {
             e.stopPropagation();
             startResize(element, position, e);
         });
+        
+        handle.addEventListener('touchstart', function(e) {
+            e.stopPropagation();
+            const touch = e.touches[0];
+            startResize(element, position, touch);
+        });
+        
         element.appendChild(handle);
     });
 }
@@ -716,7 +824,11 @@ function showPropertyPanel(element) {
         function makeElementDraggable(element) {
             let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
             
+            // Add mouse event listeners
             element.addEventListener('mousedown', dragMouseDown);
+            
+            // Add touch event listeners for mobile devices
+            element.addEventListener('touchstart', dragTouchStart, { passive: false });
             
             function dragMouseDown(e) {
                 e.preventDefault();
@@ -730,6 +842,21 @@ function showPropertyPanel(element) {
                 
                 document.addEventListener('mousemove', elementDrag);
                 document.addEventListener('mouseup', closeDragElement);
+            }
+            
+            function dragTouchStart(e) {
+                e.preventDefault(); // Prevent scrolling when touching draggable elements
+                
+                // Select the element
+                selectElement(element);
+                
+                // Get the touch position at startup
+                const touch = e.touches[0];
+                pos3 = touch.clientX;
+                pos4 = touch.clientY;
+                
+                document.addEventListener('touchmove', elementTouchDrag, { passive: false });
+                document.addEventListener('touchend', closeTouchDragElement);
             }
             
             function elementDrag(e) {
@@ -746,10 +873,31 @@ function showPropertyPanel(element) {
                 element.style.left = (element.offsetLeft - pos1) + "px";
             }
             
+            function elementTouchDrag(e) {
+                e.preventDefault();
+                
+                // Calculate the new touch position
+                const touch = e.touches[0];
+                pos1 = pos3 - touch.clientX;
+                pos2 = pos4 - touch.clientY;
+                pos3 = touch.clientX;
+                pos4 = touch.clientY;
+                
+                // Set the element's new position
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
+            }
+            
             function closeDragElement() {
                 // Stop moving when mouse button is released
                 document.removeEventListener('mousemove', elementDrag);
                 document.removeEventListener('mouseup', closeDragElement);
+            }
+            
+            function closeTouchDragElement() {
+                // Stop moving when touch ends
+                document.removeEventListener('touchmove', elementTouchDrag);
+                document.removeEventListener('touchend', closeTouchDragElement);
             }
         }
         
@@ -765,13 +913,29 @@ function startResize(element, position, e) {
     const startLeft = parseInt(document.defaultView.getComputedStyle(element).left, 10);
     const startTop = parseInt(document.defaultView.getComputedStyle(element).top, 10);
     
+    // Add mouse event listeners
     document.addEventListener('mousemove', resizeElement);
     document.addEventListener('mouseup', stopResize);
     
+    // Add touch event listeners for mobile devices
+    document.addEventListener('touchmove', resizeTouchElement, { passive: false });
+    document.addEventListener('touchend', stopTouchResize);
+    
     function resizeElement(e) {
+        handleResize(e.clientX, e.clientY);
+    }
+    
+    function resizeTouchElement(e) {
+        e.preventDefault(); // Prevent scrolling during resize
+        const touch = e.touches[0];
+        handleResize(touch.clientX, touch.clientY);
+    }
+    
+    function handleResize(clientX, clientY) {
+        // Handle corner resizing
         if (position === 'bottom-right') {
-            const width = startWidth + e.clientX - startX;
-            const height = startHeight + e.clientY - startY;
+            const width = startWidth + clientX - startX;
+            const height = startHeight + clientY - startY;
             
             if (width > 20) {
                 element.style.width = width + 'px';
@@ -781,9 +945,9 @@ function startResize(element, position, e) {
                 element.style.height = height + 'px';
             }
         } else if (position === 'bottom-left') {
-            const width = startWidth - (e.clientX - startX);
-            const height = startHeight + e.clientY - startY;
-            const left = startLeft + (e.clientX - startX);
+            const width = startWidth - (clientX - startX);
+            const height = startHeight + clientY - startY;
+            const left = startLeft + (clientX - startX);
             
             if (width > 20) {
                 element.style.width = width + 'px';
@@ -794,9 +958,9 @@ function startResize(element, position, e) {
                 element.style.height = height + 'px';
             }
         } else if (position === 'top-right') {
-            const width = startWidth + e.clientX - startX;
-            const height = startHeight - (e.clientY - startY);
-            const top = startTop + (e.clientY - startY);
+            const width = startWidth + clientX - startX;
+            const height = startHeight - (clientY - startY);
+            const top = startTop + (clientY - startY);
             
             if (width > 20) {
                 element.style.width = width + 'px';
@@ -807,10 +971,10 @@ function startResize(element, position, e) {
                 element.style.top = top + 'px';
             }
         } else if (position === 'top-left') {
-            const width = startWidth - (e.clientX - startX);
-            const height = startHeight - (e.clientY - startY);
-            const left = startLeft + (e.clientX - startX);
-            const top = startTop + (e.clientY - startY);
+            const width = startWidth - (clientX - startX);
+            const height = startHeight - (clientY - startY);
+            const left = startLeft + (clientX - startX);
+            const top = startTop + (clientY - startY);
             
             if (width > 20) {
                 element.style.width = width + 'px';
@@ -822,22 +986,269 @@ function startResize(element, position, e) {
                 element.style.top = top + 'px';
             }
         }
+        // Handle edge resizing
+        else if (position === 'top-center') {
+            const height = startHeight - (clientY - startY);
+            const top = startTop + (clientY - startY);
+            
+            if (height > 20) {
+                element.style.height = height + 'px';
+                element.style.top = top + 'px';
+            }
+        } else if (position === 'bottom-center') {
+            const height = startHeight + clientY - startY;
+            
+            if (height > 20) {
+                element.style.height = height + 'px';
+            }
+        } else if (position === 'left-center') {
+            const width = startWidth - (clientX - startX);
+            const left = startLeft + (clientX - startX);
+            
+            if (width > 20) {
+                element.style.width = width + 'px';
+                element.style.left = left + 'px';
+            }
+        } else if (position === 'right-center') {
+            const width = startWidth + clientX - startX;
+            
+            if (width > 20) {
+                element.style.width = width + 'px';
+            }
+        }
     }
     
     function stopResize() {
         document.removeEventListener('mousemove', resizeElement);
         document.removeEventListener('mouseup', stopResize);
     }
+    
+    function stopTouchResize() {
+        document.removeEventListener('touchmove', resizeTouchElement);
+        document.removeEventListener('touchend', stopTouchResize);
+    }
 }
 
 // Open image selection dialog
 function openImageSelectionDialog(x, y) {
-    // In a real app, this would open a modal with image options
-    // For this example, we'll just use a prompt
-    const imageUrl = prompt('Enter image URL or search for an image in the sidebar:', 'https://via.placeholder.com/300x200');
+    // Create a modal dialog for image selection
+    const modal = document.createElement('div');
+    modal.className = 'image-selection-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Select an Image</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="search-container">
+                    <input type="text" id="modal-image-search" placeholder="Search for images...">
+                    <button id="modal-search-btn">Search</button>
+                </div>
+                <div id="modal-images-container" class="images-grid">
+                    <div class="loading">Loading images...</div>
+                </div>
+            </div>
+        </div>
+    `;
     
-    if (imageUrl) {
+    document.body.appendChild(modal);
+    
+    // Add event listeners
+    const closeBtn = modal.querySelector('.close-btn');
+    closeBtn.addEventListener('click', () => {
+        modal.remove();
+    });
+    
+    // Close modal when clicking outside the content
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
+    
+    const searchBtn = modal.querySelector('#modal-search-btn');
+    const searchInput = modal.querySelector('#modal-image-search');
+    const imagesContainer = modal.querySelector('#modal-images-container');
+    
+    // Load initial images
+    fetchPexelsImages('food menu', imagesContainer, (imageUrl) => {
+        modal.remove();
         const imageElement = addImageElement(imageUrl, x, y, 300, 200);
         selectElement(imageElement);
-    }
+    });
+    
+    // Add search functionality
+    searchBtn.addEventListener('click', () => {
+        const query = searchInput.value.trim();
+        if (query) {
+            fetchPexelsImages(query, imagesContainer, (imageUrl) => {
+                modal.remove();
+                const imageElement = addImageElement(imageUrl, x, y, 300, 200);
+                selectElement(imageElement);
+            });
+        }
+    });
+    
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const query = searchInput.value.trim();
+            if (query) {
+                fetchPexelsImages(query, imagesContainer, (imageUrl) => {
+                    modal.remove();
+                    const imageElement = addImageElement(imageUrl, x, y, 300, 200);
+                    selectElement(imageElement);
+                });
+            }
+        }
+    });
+    
+    // Add CSS for the modal
+    const style = document.createElement('style');
+    style.textContent = `
+        .image-selection-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .modal-header h3 {
+            margin: 0;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .modal-body {
+            padding: 15px;
+            overflow-y: auto;
+        }
+        .search-container {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        .search-container input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+        }
+        .search-container button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        .image-item {
+            cursor: pointer;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .image-item:hover {
+            transform: scale(1.05);
+        }
+        .image-item img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+        .loading, .error, .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 20px;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Fetch images from Pexels API
+function fetchPexelsImages(query, container, onSelect) {
+    // Clear previous images
+    container.innerHTML = '<div class="loading">Loading images...</div>';
+    
+    // Pexels API key
+    const apiKey = 'TUzzSvjEUXBV29vKjuGwBVr4YwmxBnJI6L07LtJScBOexfWXYXmzZj4o';
+    
+    // Fetch images based on search query
+    fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=20`, {
+        headers: {
+            'Authorization': apiKey
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.photos.length === 0) {
+            container.innerHTML = '<div class="no-results">No images found. Try a different search term.</div>';
+        } else {
+            // Clear container
+            container.innerHTML = '';
+            
+            // Add each photo to the container
+            data.photos.forEach(photo => {
+                const imageItem = document.createElement('div');
+                imageItem.className = 'image-item';
+                
+                const img = document.createElement('img');
+                img.src = photo.src.medium;
+                img.alt = photo.photographer;
+                
+                imageItem.appendChild(img);
+                
+                // Add click event to select the image
+                imageItem.addEventListener('click', () => {
+                    onSelect(photo.src.medium);
+                });
+                
+                container.appendChild(imageItem);
+            });
+            
+            // Add attribution
+            const attribution = document.createElement('div');
+            attribution.className = 'pexels-attribution';
+            attribution.innerHTML = 'Photos provided by <a href="https://www.pexels.com" target="_blank">Pexels</a>';
+            container.appendChild(attribution);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching Pexels images:', error);
+        container.innerHTML = '<div class="error">Error loading images. Please try again later.</div>';
+    });
 }
