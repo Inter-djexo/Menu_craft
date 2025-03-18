@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Editor - MenuCraft</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <!-- Same navbar as index.html -->
+    </header>
+
+    <main class="editor-container">
+        <aside class="editor-sidebar">
+            <div class="sidebar-section">
+                <h3>Templates</h3>
+                <div class="templates-grid" id="templates-container">
+                    <!-- Templates will be loaded dynamically -->
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <h3>Elements</h3>
+                <div class="elements-list">
+                    <div class="element-item" draggable="true" data-type="text">
+                        <i class="fas fa-font"></i>
+                        <span>Text</span>
+                    </div>
+                    <div class="element-item" draggable="true" data-type="shape">
+                        <i class="fas fa-shapes"></i>
+                        <span>Shape</span>
+                    </div>
+                    <div class="element-item" draggable="true" data-type="image">
+                        <i class="fas fa-image"></i>
+                        <span>Image</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <h3>Images</h3>
+                <div class="search-container">
+                    <input type="text" id="image-search" placeholder="Search images...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="images-grid" id="pexels-images">
+                    <!-- Images will be loaded from Pexels API -->
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <h3>Background</h3>
+                <div class="color-picker">
+                    <input type="color" id="bg-color-picker" value="#ffffff">
+                    <span>Background Color</span>
+                </div>
+                <div class="background-patterns">
+                    <!-- Background patterns will be loaded dynamically -->
+                </div>
+            </div>
+        </aside>
+
+        <section class="editor-canvas-container">
+            <div class="editor-toolbar">
+                <div class="toolbar-left">
+                    <button id="generate-btn" class="btn-primary">Generate New Template</button>
+                </div>
+                <div class="toolbar-right">
+                    <button id="undo-btn"><i class="fas fa-undo"></i></button>
+                    <button id="redo-btn"><i class="fas fa-redo"></i></button>
+                    <button id="save-btn"><i class="fas fa-save"></i> Save</button>
+                    <div class="export-dropdown">
+                        <button id="export-btn"><i class="fas fa-download"></i> Export</button>
+                        <div class="export-options">
+                            <button id="export-png">PNG</button>
+                            <button id="export-pdf">PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas-wrapper">
+                <div id="editor-canvas" class="editor-canvas">
+                    <!-- Canvas content will be added dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <aside class="properties-panel">
+            <h3>Properties</h3>
+            <div id="text-properties" class="property-group hidden">
+                <h4>Text Properties</h4>
+                <div class="property-row">
+                    <label for="font-family">Font:</label>
+                    <select id="font-family">
+                        <option value="Arial">Arial</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Courier New">Courier New</option>
+                    </select>
+                </div>
+                <div class="property-row">
+                    <label for="font-size">Size:</label>
+                    <input type="number" id="font-size" min="8" max="72" value="16">
+                </div>
+                <div class="property-row">
+                    <label for="text-color">Color:</label>
+                    <input type="color" id="text-color" value="#000000">
+                </div>
+                <div class="property-row text-style-buttons">
+                    <button id="bold-btn"><i class="fas fa-bold"></i></button>
+                    <button id="italic-btn"><i class="fas fa-italic"></i></button>
+                    <button id="underline-btn"><i class="fas fa-underline"></i></button>
+                </div>
+                <div class="property-row text-align-buttons">
+                    <button id="align-left"><i class="fas fa-align-left"></i></button>
+                    <button id="align-center"><i class="fas fa-align-center"></i></button>
+                    <button id="align-right"><i class="fas fa-align-right"></i></button>
+                </div>
+            </div>
+
+            <div id="shape-properties" class="property-group hidden">
+                <h4>Shape Properties</h4>
+                <div class="property-row">
+                    <label for="shape-color">Fill Color:</label>
+                    <input type="color" id="shape-color" value="#e0e0e0">
+                </div>
+                <div class="property-row">
+                    <label for="border-color">Border Color:</label>
+                    <input type="color" id="border-color" value="#000000">
+                </div>
+                <div class="property-row">
+                    <label for="border-width">Border Width:</label>
+                    <input type="number" id="border-width" min="0" max="10" value="1">
+                </div>
+                <div class="property-row">
+                    <label for="shape-opacity">Opacity:</label>
+                    <input type="range" id="shape-opacity" min="0" max="1" step="0.1" value="1">
+                </div>
+            </div>
+
+            <div id="image-properties" class="property-group hidden">
+                <h4>Image Properties</h4>
+                <div class="property-row">
+                    <label for="image-opacity">Opacity:</label>
+                    <input type="range" id="image-opacity" min="0" max="1" step="0.1" value="1">
+                </div>
+                <div class="property-row">
+                    <label for="image-filter">Filter:</label>
+                    <select id="image-filter">
+                        <option value="none">None</option>
+                        <option value="grayscale">Grayscale</option>
+                        <option value="sepia">Sepia</option>
+                        <option value="blur">Blur</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="property-row delete-button">
+                <button id="delete-element"><i class="fas fa-trash"></i> Delete Element</button>
+            </div>
+        </aside>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/drag-drop.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="js/pexels-api.js"></script>
+    <script src="js/export.js"></script>
+</body>
+</html>
